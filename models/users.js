@@ -31,7 +31,27 @@ export function createUser(newUser) {
 }
 
 // UPDATE A USER BY ID
-export function updateUserByID(id, updatedUser) {}
+export function updateUserByID(id, updatedUser) {
+  // take in the id and the updated user
+  // find user with supplied id
+  const userWithMatchingID = users.findIndex(function (user) {
+    return user.id === id;
+  });
+  // replace old user with updated user
+  users[userWithMatchingID] = updatedUser;
+  // return the new user
+  return users[userWithMatchingID];
+}
 
 // DELETE A USER BY ID
-export function deleteUserByID(id) {}
+export function deleteUserByID(targetID) {
+  // find user with matching id
+  const userWithMatchingID = users.findIndex(function (user) {
+    return user.id === targetID;
+  });
+  const deletedUser = users[userWithMatchingID];
+  //   // remove user from users array
+  users.splice(userWithMatchingID, 1);
+  //   // return removed item
+  return deletedUser;
+}
