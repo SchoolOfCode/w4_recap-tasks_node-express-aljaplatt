@@ -11,6 +11,41 @@ const app = express();
 
 app.use(express.json());
 
+app.get("/users", function (req, res) {
+  // get all of the recipes and respond with the json
+  const allUsers = getUsers();
+  // respond with json
+  res.json({
+    success: true,
+    payload: allUsers,
+  });
+});
+
+app.get("/users/:id", function (req, res) {
+  // get the id from the url // make sure id is typeof number (parseInt/Number)
+  const storedID = Number(req.params.id);
+  //   // get a user with that id
+  const foundUser = getUserByID(storedID);
+  //   // respond
+  res.json({
+    success: true,
+    payload: foundUser,
+  });
+});
+
+app.post("/users", function (req, res) {
+  // get new user from the body - express middleware grabs json attached to the request and stores it in req.body
+  //   // post request takes the user from the body, & gives it to createUser
+  const newUser = req.body;
+  //   // add new user to users
+  const result = createUser(newUser);
+  //   // respond with res.json to the user
+  res.json({
+    success: true,
+    payload: result,
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
