@@ -18,14 +18,25 @@ export function getUserByID(id) {
   //   // if the id matches, return that user
   return userWithMatchingID;
 }
-
 // let userByID = getUserByID(2);
 // console.log(userByID);
 
+function generateID() {
+  // Look through the users list
+  // Find the first ID number missing, or the next number
+  //in the sequence
+  // return that number
+  let result = users.length;
+  return result;
+}
+
+let newID = generateID();
+console.log(newID);
 // CREATE A USER
 export function createUser(newUser) {
   // take in a user & add it to the users array
   users.push(newUser);
+  newUser.id = generateID();
   //   // return new user
   return users[users.length - 1];
 }
