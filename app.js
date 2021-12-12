@@ -11,6 +11,8 @@ const app = express();
 
 app.use(express.json());
 
+app.use(loggingMiddleware);
+
 app.get("/users", function (req, res) {
   // get all of the recipes and respond with the json
   const allUsers = getUsers();
@@ -72,6 +74,12 @@ app.delete("/users/:id", function (req, res) {
     payload: deletedUser,
   });
 });
+
+function loggingMiddleware(req, res, next) {
+  console.log("I am SPARRR... middleware");
+  console.log(`${new Date().toISOString()}: ${req.originalUrl}`);
+  next();
+}
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
